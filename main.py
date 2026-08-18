@@ -3,7 +3,7 @@ import os
 
 # User input file
 input_file = "image.png"
-selected_format = 0
+user_choice = 0
 
 # Tries to open the input file if it exists as an image file
 try:
@@ -12,29 +12,29 @@ try:
         input_format = img.format
         print(f"Input image format is {input_format}")
 
-        output_format = ['PNG', 'JPEG', 'PDF', 'WEBP']
+        available_formats = ['PNG', 'JPEG', 'PDF', 'WEBP']
         print(f"What format do you want to convert {input_file} to?")
 
         # Prints the elements in the tuple in order
-        for i, formats, in enumerate(output_format):
+        for i, formats, in enumerate(available_formats):
             print(f"{i + 1}. {formats} ")
 
-        selected_format = int(input("Enter a number: "))
+        user_choice = int(input("Enter a number: "))
 
         # Will ask again for a number if the input is invalid
-        while (not 1 <= selected_format <= len(output_format)):
-            selected_format = int(input("Please enter a listed number: "))
+        while (not 1 <= user_choice <= len(available_formats)):
+            user_choice = int(input("Please enter a listed number: "))
 
-        # Matches the input to its format
-        selected_output = output_format[selected_format - 1]
-        print(f"{selected_output} selected")
+        # Matches the user choice to its format
+        output_format = available_formats[user_choice - 1]
+        print(f"{output_format} selected")
 
         # Creates a file name using the old file name and new format
-        output_file = os.path.splitext(input_file)[0] + '.' + selected_output.lower()
+        output_file = os.path.splitext(input_file)[0] + '.' + output_format.lower()
 
         # Saves the image
-        img.save(output_file, selected_output)
-        print(f"{input_file} saved as {selected_output}!")
+        img.save(output_file, output_format)
+        print(f"{input_file} saved as {output_format}!")
 
 except IOError:
     print("Error: Invalid image file.")
