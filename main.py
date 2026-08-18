@@ -25,8 +25,13 @@ try:
         while (not 1 <= selected_format <= len(output_format)):
             selected_format = int(input("Please enter a listed number: "))
 
+        # Matches the input to its format
         selected_output = output_format[selected_format - 1]
-        print(f"{selected_output} selected.")
+        print(f"{selected_output} selected")
+
+        output_file = os.path.splitext(input_file)[0] + '.' + selected_output.lower()
+
+        img.save(output_file, selected_output)
 
 
 except IOError:
