@@ -29,10 +29,12 @@ try:
         selected_output = output_format[selected_format - 1]
         print(f"{selected_output} selected")
 
+        # Creates a file name using the old file name and new format
         output_file = os.path.splitext(input_file)[0] + '.' + selected_output.lower()
 
+        # Saves the image
         img.save(output_file, selected_output)
-
+        print(f"{input_file} saved as {selected_output}!")
 
 except IOError:
     print("Error: Invalid image file.")
