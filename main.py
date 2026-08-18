@@ -25,6 +25,9 @@ try:
         while (not 1 <= selected_format <= len(output_format)):
             selected_format = int(input("Please enter a listed number: "))
 
+        selected_output = output_format[selected_format - 1]
+        print(f"{selected_output} selected.")
+
 
 except IOError:
     print("Error: Invalid image file.")
