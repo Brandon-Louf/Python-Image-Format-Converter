@@ -1,40 +1,42 @@
 from PIL import Image
 import os
 
-# User input file
-input_file = "image.png"
+input_file = ["image.png", "image2.png", "image3.png"]
+available_formats = ['PNG', 'JPEG', 'PDF', 'WEBP']
+list_counter = 0
 user_choice = 0
 
-# Tries to open the input file if it exists as an image file
-try:
-    with Image.open(input_file) as img:
-        # The format type of the image (PNG, PDF, ect.)
-        input_format = img.format
-        print(f"Input image format is {input_format}")
+for file in input_file:
+    try:
+        with Image.open(input_file[list_counter]) as img:
+            print("Valid image file.")
+            list_counter += 1
+    except IOError:
+        raise Exception("Error: Invalid image file.")
 
-        available_formats = ['PNG', 'JPEG', 'PDF', 'WEBP']
-        print(f"What format do you want to convert {input_file} to?")
+print(f"What format do you want to convert {input_file} to?")
 
-        # Prints the elements in the tuple in order
-        for i, formats, in enumerate(available_formats):
-            print(f"{i + 1}. {formats} ")
+for i, formats, in enumerate(available_formats):
+    print(f"{i + 1}. {formats} ")
 
-        user_choice = int(input("Enter a number: "))
+user_choice = int(input("Enter a number: "))
 
-        # Will ask again for a number if the input is invalid
-        while (not 1 <= user_choice <= len(available_formats)):
-            user_choice = int(input("Please enter a listed number: "))
+while not 1 <= user_choice <= len(available_formats):
+    user_choice = int(input("Please enter a listed number: "))
 
-        # Matches the user choice to its format
-        output_format = available_formats[user_choice - 1]
-        print(f"{output_format} selected")
+output_format = available_formats[user_choice - 1]
+print(f"{output_format} selected")
 
-        # Creates a file name using the old file name and new format
-        output_file = os.path.splitext(input_file)[0] + '.' + output_format.lower()
+list_counter = 0
 
-        # Saves the image
-        img.save(output_file, output_format)
-        print(f"{input_file} saved as {output_format}!")
-
-except IOError:
-    print("Error: Invalid image file.")
+if output_format == 'PDF':
+    print("PDF")
+elif output_format == 'GIF':
+    print("GIF")
+else:
+    print("PDF/JPEG/WEBP")
+    images = [Image.open(filename) for filename in input_file]
+    for i in input_file:
+        output_file = os.path.splitext(input_file[list_counter])[0] + '.' + output_format.lower()
+        images[list_counter].save(output_file, output_format)
+        list_counter += 1
