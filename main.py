@@ -1,14 +1,10 @@
-# Module
+import tkinter as tk
 
+# Main Window
+root = tk.Tk()
 
-# Class
-    # Constructor
-
-    # App Object and Design
-
-    # App Settings
-
-    # Button Events
+# Window Title
+root.title("Image Format Converter")
 
 
 
